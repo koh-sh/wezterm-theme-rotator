@@ -1,4 +1,4 @@
-# Wezterm Theme Rotator
+# WezTerm Theme Rotator
 
 A plugin for WezTerm that allows you to easily switch between all built-in themes using keyboard shortcuts.
 
