@@ -4,6 +4,8 @@ A plugin for WezTerm that allows you to easily switch between all built-in theme
 
 <https://wezterm.org/config/plugins.html>
 
+<https://github.com/user-attachments/assets/b34ec3f1-eee4-41f3-8af6-275c9353574c>
+
 ## Features
 
 - Cycle through all built-in WezTerm themes sequentially
