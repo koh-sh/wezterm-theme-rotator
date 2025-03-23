@@ -33,8 +33,8 @@ return config
 
 By default, the following keyboard shortcuts are available:
 
-- `Super+Shift+T`: Switch to the next theme (on macOS, `Cmd+Shift+T`)
-- `Super+Shift+B`: Switch to the previous theme (on macOS, `Cmd+Shift+B`)
+- `Super+Shift+N`: Switch to the next theme (on macOS, `Cmd+Shift+N`)
+- `Super+Shift+P`: Switch to the previous theme (on macOS, `Cmd+Shift+P`)
 - `Super+Shift+R`: Apply a random theme (on macOS, `Cmd+Shift+R`)
 - `Super+Shift+D`: Switch back to the default theme (on macOS, `Cmd+Shift+D`)
 

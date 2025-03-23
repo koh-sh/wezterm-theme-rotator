@@ -121,7 +121,7 @@ local function setup_key_bindings(options)
 
     -- Next theme key binding
     table.insert(keys, {
-        key = options.next_theme_key or 't',
+        key = options.next_theme_key or 'n',
         mods = options.next_theme_mods or 'SUPER|SHIFT',
         action = wezterm.action_callback(function(window, pane)
             next_theme(window)
@@ -130,7 +130,7 @@ local function setup_key_bindings(options)
 
     -- Previous theme key binding
     table.insert(keys, {
-        key = options.prev_theme_key or 'b',
+        key = options.prev_theme_key or 'p',
         mods = options.prev_theme_mods or 'SUPER|SHIFT',
         action = wezterm.action_callback(function(window, pane)
             prev_theme(window)
