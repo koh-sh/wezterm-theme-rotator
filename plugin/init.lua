@@ -71,8 +71,18 @@ end
 
 -- Switch to a random theme
 local function random_theme(window)
+    -- Set random seed with integer value
     math.randomseed(os.time())
-    local new_index = math.random(1, #state.themes)
+
+    -- Ensure we select a different theme than the current one
+    local current_theme_index = state.current_index
+    local new_index = current_theme_index
+
+    -- Keep trying until we get a different theme
+    while new_index == current_theme_index do
+        new_index = math.random(1, #state.themes)
+    end
+
     apply_theme(window, new_index, 'Random theme')
 end
 
