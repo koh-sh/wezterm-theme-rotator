@@ -10,8 +10,9 @@ local ThemeRotator = {}
 
 -- Internal state
 local state = {
-    themes = {},      -- List of available themes
-    current_index = 1 -- Current theme index
+    themes = {},        -- List of available themes
+    current_index = 1,  -- Current theme index
+    default_theme = nil -- Original theme from config
 }
 
 -----------------------------------------------------------
@@ -86,19 +87,16 @@ local function random_theme(window)
     apply_theme(window, new_index, 'Random theme')
 end
 
--- Display debug information
-local function show_debug(window)
-    local effective_config = window:effective_config()
-    local current_theme = effective_config.color_scheme
-
-    local info = string.format(
-        'Theme: %s\nIndex: %d\nTotal themes: %d',
-        current_theme,
-        state.current_index,
-        #state.themes
-    )
-
-    window:toast_notification('Theme Debug Info', info, nil, 6000)
+-- Switch back to the default theme
+local function default_theme(window)
+    -- Use the original theme from configuration
+    if state.default_theme then
+        local default_index = find_theme_index(state.default_theme)
+        apply_theme(window, default_index, 'Default theme')
+    else
+        -- Fallback to first theme if default not set
+        apply_theme(window, 1, 'First theme')
+    end
 end
 
 -- Update the right status with current theme information
@@ -148,12 +146,12 @@ local function setup_key_bindings(options)
         end),
     })
 
-    -- Debug info key binding
+    -- Default theme key binding
     table.insert(keys, {
-        key = options.debug_info_key or 'i',
-        mods = options.debug_info_mods or 'SUPER|SHIFT',
+        key = options.default_theme_key or 'd',
+        mods = options.default_theme_mods or 'SUPER|SHIFT',
         action = wezterm.action_callback(function(window, pane)
-            show_debug(window)
+            default_theme(window)
         end),
     })
 
@@ -165,14 +163,18 @@ local function initialize_theme_state(config)
     -- Build theme list
     state.themes = build_theme_list()
 
+    -- Save the original theme from config as default
+    state.default_theme = config.color_scheme
+
     -- Set initial theme index
     if config.color_scheme then
         state.current_index = find_theme_index(config.color_scheme)
     else
-        -- If no theme is set, select one randomly
-        math.randomseed(os.time())
-        state.current_index = math.random(#state.themes)
+        -- If no theme is set, use the first theme
+        state.current_index = 1
         config.color_scheme = state.themes[state.current_index]
+        -- Also save this as default
+        state.default_theme = config.color_scheme
     end
 end
 
